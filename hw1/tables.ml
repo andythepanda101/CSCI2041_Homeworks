@@ -32,7 +32,7 @@ let sort_assoc sortcol ralist = ralist (* you got this!!! *)
 let cut_to_rows k ralist = [] (* you cut me real deep just now... *)
 
 (* last one! *)
-let reassemble (clist : string list)  (ralist : (string*string) list) = [[]]
+let reassemble (clist : string list)  (ralist : (string*string) list list) = [[]]
 
 (* OK, more free stuff *)
 let rec main id od sortcol srev hr outcols outrows =
