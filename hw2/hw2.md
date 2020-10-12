@@ -100,7 +100,7 @@ implementation in the file already:
 
 + `bool_exp_of_s_exp` pipelines the wordlist through parsing functions to convert a string into a boolean expression.
 
-+ `eval_exp` evaluates a boolean expression `bexp`, assuming the variables in the list `tru` are set to `true` and any other variables in the formula are set to `false`.
++ `eval_bool_exp` evaluates a boolean expression `bexp`, assuming the variables in the list `tru` are set to `true` and any other variables in the formula are set to `false`.
 
 There is one more functions fully implemented in `boolExpr.ml`, `solver_main`.  This function handles the two possible flows of work currently done by the tool:
 
@@ -158,17 +158,17 @@ expression.
 
 This can be accomplished by calling `invalid_arg s`, with `s` (a string).
 
-### 3. `eval_exp`
+### 3. `eval_bool_exp`
 
 Once we can represent the new boolean operations as `boolExpr`s, we'll need to modify `eval_bool_exp` to evaluate them correctly.  Some sample evaluations:
 
-+ `eval_exp (Not (Const false)) []` should evaluate to `true`
++ `eval_bool_exp (Not (Const false)) []` should evaluate to `true`
 
-+ `eval_exp (Eq (Const false, Const true)) []` should evaluate to `false`
++ `eval_bool_exp (Eq (Const false, Const true)) []` should evaluate to `false`
 
-+ `eval_exp (Xor (Const false, Const true)) []` should evaluate to `true`
++ `eval_bool_exp (Xor (Const false, Const true)) []` should evaluate to `true`
 
-+ `eval_exp (And (Const false, Or (Id "y", Const true))) []` should evaluate to `false`
++ `eval_bool_exp (And (Const false, Or (Id "y", Const true))) []` should evaluate to `false`
 
 ### 4. `subsets`
 
@@ -196,7 +196,7 @@ Another important function needed to find satisfying assignments is the function
 
 ### 6. `find_sat_sets`
 
-Given the two previous functions, we can write the function `find_sat_sets : boolExpr -> string list option` which should the sorted string list list of all subsets of variables that can be set to true to satisfy the expression, or `[]` if there is no such subset.  Some example evaluations:
+Given the two previous functions, we can write the function `find_sat_sets : boolExpr -> string list list` which should produce the sorted string list list of all subsets of variables that can be set to true to satisfy the expression, or `[]` if there is no such subset.  Some example evaluations:
 
 + `find_sat_sets (Const false)` should evaluate to `[]`
 
